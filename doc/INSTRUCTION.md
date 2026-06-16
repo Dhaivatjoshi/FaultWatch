@@ -1,4 +1,4 @@
-# FaultIndicator Library — Full Build Instruction
+# FaultIndicator Library | Full Build Instruction
 
 > Work through this document top to bottom with Claude Code + VS Code.
 > Each section tells you exactly what to build, what files to create, and what to ask Claude Code to do.
