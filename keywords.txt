@@ -1,0 +1,38 @@
+#######################################
+# Syntax Coloring Map For FaultWatch
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+FaultWatch	KEYWORD1
+FwErrorType	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+SINGLE_COLOR	KEYWORD2
+TWO_COLOR	KEYWORD2
+singleFlash	KEYWORD2
+dualBlink	KEYWORD2
+solid		KEYWORD2
+fastFlash	KEYWORD2
+slowDualBlink	KEYWORD2
+update		KEYWORD2
+setErrorByte	KEYWORD2
+getErrorHex	KEYWORD2
+setPriority	KEYWORD2
+getPriority	KEYWORD2
+setErrorCode	KEYWORD2
+setCodeTiming	KEYWORD2
+getDiagnosticCodeHex	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+FW_DEBUG	LITERAL1
+FW_ERROR_BITS	LITERAL1
+FW_ERROR_HEX_DIGITS	LITERAL1

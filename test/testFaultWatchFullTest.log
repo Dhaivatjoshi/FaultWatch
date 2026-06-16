@@ -1,0 +1,105 @@
+
+
+############################################################
+# Run: 2026-06-16 03:25:51
+############################################################
+  Log: F:\projects\Generic Project\Generic_library\LEDErrorIndicator\test\testFaultWatchFullTest.log
+  Connected to COM9 @ 115200 baud
+
+=== FaultWatch Automation Test ===
+
+[1] Help command
+    [PASS] Help menu contains 'Commands'
+
+[2] setErrorByte() — SINGLE LED
+    [PASS] s0  → SINGLE = 0b0
+    [PASS] s5  → SINGLE = 0b101
+    [PASS] s255 → SINGLE = 0b11111111
+
+[3] setErrorByte() — DOUBLE LED
+    [PASS] t0   → DOUBLE = 0b0
+    [PASS] t128 → DOUBLE = 0b10000000
+    [PASS] t255 → DOUBLE = 0b11111111
+
+[4] getErrorHex()
+    [PASS] s5  → getErrorHex SINGLE = 0x05
+    [PASS] t2  → getErrorHex DOUBLE = 0x02
+    [PASS] s255 → getErrorHex SINGLE = 0xFF
+    [PASS] t255 → getErrorHex DOUBLE = 0xFF
+    [PASS] s0  → getErrorHex SINGLE = 0x00
+
+[5] Instance independence (separate error registers)
+    [PASS] SINGLE=0xAA and DOUBLE=0x55 are independent
+
+[6] Input validation
+    [PASS] s256 → rejected (> 255)
+    [PASS] t-1  → rejected (< 0)
+    [PASS] Unknown cmd 'z' → rejected
+
+[7] setPriority()
+    [PASS] p0,1 → bit 0 = priority 1 (exclusive)
+    [PASS] p3,5 → bit 3 = priority 5
+    [PASS] p7,8 → bit 7 = priority 8 (lowest)
+
+[8] setPriority() validation
+    [PASS] p0,0 → rejected (priority 0 invalid)
+    [PASS] p0,9 → rejected (priority 9 invalid)
+    [PASS] p8,1 → rejected (bit 8 out of range)
+
+[9] setErrorCode()
+    [PASS] c0,2,1 → code (2,1) accepted
+    [PASS] c3,3,4 → code (3,4) accepted
+    [PASS] c7,1,8 → code (1,8) accepted
+
+[10] getDiagnosticCodeHex()
+    [PASS] c0,2,1 → d0 = 0x0201
+    [PASS] c3,3,4 → d3 = 0x0304
+    [PASS] c7,1,8 → d7 = 0x0108
+    [PASS] c1,15,15 → d1 = 0x0F0F (nibble max)
+
+[11] setErrorCode() validation
+    [PASS] c0,16,1 → rejected (A > 15)
+    [PASS] c0,1,16 → rejected (B > 15)
+    [PASS] c8,1,1  → rejected (bit > 7)
+
+[12] setCodeTiming()
+    [PASS] g300,600 → blink=300ms
+    [PASS] g300,600 → gap=600ms
+    [PASS] g100,300 → blink=100ms
+
+[13] setCodeTiming() validation
+    [PASS] g0,600 → rejected (blink = 0)
+    [PASS] g300,0 → rejected (gap = 0)
+
+[14] Full round-trip: set then read back via hex
+    [PASS] s170 → getErrorHex SINGLE = 0xAA
+    [PASS] t85 → getErrorHex DOUBLE = 0x55
+
+====================================================
+                 FUNCTION CHECKLIST               
+====================================================
+  Function                                   Status
+----------------------------------------------------
+  [OK] printHelp()                               1/1
+  [OK] setErrorByte() SINGLE                     3/3
+  [OK] setErrorByte() DOUBLE                     3/3
+  [OK] getErrorHex() SINGLE                      3/3
+  [OK] getErrorHex() DOUBLE                      2/2
+  [OK] setErrorByte() independence               1/1
+  [OK] setErrorByte() validation                 2/2
+  [OK] command parser                            1/1
+  [OK] setPriority()                             3/3
+  [OK] setPriority() validation                  3/3
+  [OK] setErrorCode()                            3/3
+  [OK] getDiagnosticCodeHex()                    3/3
+  [OK] getDiagnosticCodeHex() clamp              1/1
+  [OK] setErrorCode() validation                 3/3
+  [OK] setCodeTiming()                           3/3
+  [OK] setCodeTiming() validation                2/2
+  [OK] setErrorByte() + getErrorHex()            2/2
+====================================================
+  Functions : 17 OK, 0 failed
+  Assertions: 39 passed, 0 failed
+====================================================
+
+  All library functions verified. 

@@ -1,0 +1,32 @@
+name: Doxygen Docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # lets you trigger it manually from GitHub UI
+
+permissions:
+  contents: write           # needed to push to gh-pages branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen + Graphviz
+        run: sudo apt-get install -y --no-install-recommends doxygen graphviz
+
+      - name: Generate documentation
+        run: doxygen Doxyfile
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html      # Doxyfile OUTPUT_DIRECTORY=docs → html/ inside
+          publish_branch: gh-pages
+          force_orphan: true            # keep gh-pages branch clean (no history bloat)
+          commit_message: "docs: regenerate from ${{ github.sha }}"
